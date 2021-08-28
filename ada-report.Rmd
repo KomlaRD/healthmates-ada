@@ -32,10 +32,12 @@ pacman::p_load (
 
 
 ```{r import-dataset, include=FALSE}
-ada<- read_sheet("https://docs.google.com/spreadsheets/d/1rkdOdIxIrAXuedT_4bbHxyxWgoa6l4yUxbBuwX6FxNE/edit?usp=sharing",
+ada <- read_sheet("https://docs.google.com/spreadsheets/d/1rkdOdIxIrAXuedT_4bbHxyxWgoa6l4yUxbBuwX6FxNE/edit?usp=sharing",
                  
-                 range = "Sheet1!A2:AB77",#Read column A2 to AB77
+                 range = "Sheet1!A2:AB77",# Read column A2 to AB77
                   
+                  # Modify column names
+                 
                   col_names = c("start-time",
                                 "end-time",
                                 "today",
@@ -62,9 +64,12 @@ ada<- read_sheet("https://docs.google.com/spreadsheets/d/1rkdOdIxIrAXuedT_4bbHxy
                                 "wt",
                                 "lenhei",
                                 "head_circumference",
-                                "muac"),
+                                "muac",
+                                "edema"),
                   
-                  col_types = "c?iiciciiiiiiiiicc?") # Read sheet into console
+                  # Column types
+                 
+                  col_types = "c?iiciciiiiiiiiicc?") 
 ```
 
 
