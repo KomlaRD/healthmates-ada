@@ -28,3 +28,8 @@ pacman::p_load (
 )
 ```
 
+
+```{r import-dataset}
+ada<- read_sheet("https://docs.google.com/spreadsheets/d/1rkdOdIxIrAXuedT_4bbHxyxWgoa6l4yUxbBuwX6FxNE/edit?usp=sharing")
+```
+
