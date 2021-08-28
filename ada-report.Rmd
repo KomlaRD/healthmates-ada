@@ -1,0 +1,30 @@
+---
+title: "Ada malnutrition report"
+author: "Healthmates Nutrition"
+date: "8/28/2021"
+institute: "Healthmates Nutrition Limited"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+```{r}
+# Importing packages for project
+
+pacman::p_load (
+        tidyverse, # Data management
+        rio, # Importing dataset
+        here, # Working directory
+        janitor, # Clean data names
+        googlesheets4, # Read sheets from Google sheets
+        gtsummary, # Create summary tables
+        skimr # Overview of dataset
+        
+        
+)
+```
+
