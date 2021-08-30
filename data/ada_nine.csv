@@ -1,0 +1,37 @@
+start-time,end-time,today,name,dob,age_mons,display_age,age_manual,sex,age_mother,marital_status,educ_mum,occupation_mum,other_occupation,num-child,income,breasfeed_child,duration_bf,hours_bf,day_bf,age_intro_feed,average_intake,bwt,wt,lenhei,head_circumference,muac,edema
+,,,Jonas Nartey,,78,,,1,30,1,2,2,,3,2,1,3,2,0,6,3,3,16.9,101,,16.5,0
+,,,Joshua Nartey,,132,,,1,30,1,2,2,,3,2,1,,,,,3,,31.6,141.5,,,0
+,,,Matthias Otumfour,,125,,,1,35,2,1,2,,6,1,,,,,,3,,29.5,136.9,,,0
+,,,Mary Adjei,,108,,,2,36,1,1,2,,4,1,1,,,,,3,,29.6,137.3,,,0
+,,,Lucy Agbeyevu,,121,,,2,36,1,3,2,,4,1,,,,,,3,,32.6,139.5,,,0
+,,,Oscar Okronipah,,106,,,1,36,1,3,2,,4,1,,,,,,,,27.35,134.1,,,0
+,,,Jennifer Apetagbor Akweley,,84,,,2,50,2,1,2,,5,1,,,,,,4,2.3,20.85,113.1,,,0
+,,,Janet Apetagbor Aakor,,84,,,2,50,2,1,2,,5,1,,,,,,4,2.3,20.5,112.4,,,0
+,,,Joseph Kisseh Lawerh,,127,,,1,45,2,2,2,,5,1,,,,,,4,,27,129.4,,,0
+,,,Simon Tetteh Hormeku,,120,,,1,45,2,2,2,,5,1,,,,,,4,,25.85,132,,,0
+,,,Lucky Teikpiti,,128,,,1,45,2,2,2,,5,1,,,,,6,4,,26.65,129,,,0
+,,,Prince Narh Obodai,,159,,,1,43,1,1,2,,6,1,,,,,,4,,26.2,135,,,0
+,,,Priscilla Obodai Adjo,,128,,,2,33,1,1,2,,6,1,,,,,,4,,29.9,142.3,,,0
+,,,Dennis Abogye Ampah,,62,,,1,33,1,2,5,No work,3,1,,,,,,,3.6,15.45,99.6,,16.8,0
+,,,Joel Elinam Amen Adzoro,,77,,,1,32,1,3,2,,3,1,,,,,,4,,20.5,123.2,,,0
+,,,Obodai Odai,,134,,,1,32,1,3,2,,6,1,,,,,,4,,28.4,137,,,0
+,,,Joshua Tetteh Adigodie,,87,,,1,40,2,1,2,,2,1,,,,,,3,,19.5,117.8,,,0
+,,,Daniel Azidjodi Djagba,,118,,,1,40,2,1,2,,2,1,,,,,,3,,20.6,126.4,,,0
+,,,Kinas Amanortey,,81,,,1,44,2,1,2,,3,1,,,,,,4,,11,95,,,0
+,,,Julius Oletey Gadugah,,78,,,1,29,4,1,2,,4,1,,,,,,3,,17.15,112.9,,,0
+,,,Benedicta Buernarki Plahar,,83,,,2,33,1,3,5,No work,4,1,,,,,,3,,14.3,95.7,,,0
+,,,Nathaniel Buernor Plahar,,152,,,1,33,1,3,5,No work,4,1,,,,,,3,2.5,24.75,132.7,,,0
+,,,Olekuor Gadugah,,108,,,2,29,1,1,2,,5,1,,,,,,3,,20.2,121.1,,,0
+,,,Etel Tsatsu Wayagbor,,71,,,1,29,2,1,2,,5,1,,,,,,3,,23.3,121.2,,,0
+,,,Pearl Kabukie Akli Hodjo,,66,,,2,28,2,1,2,,5,1,,,,,,4,3.9,15.2,105.5,,,0
+,,,Matthias Puplampu,,133,,133,1,40,1,1,5,Fish Monger,4,2,1,2,,9,5,,,35.3,151.4,,19.4,0
+,,,Natashia Adoboadzi,,84,,7,2,44,3,2,2,,4,1,1,1,,,5,,,22.1,126,,15.8,0
+,,,Angela Adoboadzi,,141,,12,2,44,3,2,2,,4,1,1,1,,,5,,,29.8,143.7,,17.2,0
+,,,Stephanie Okronipa,,73,,,2,24,1,3,2,,2,2,1,2,,,5,3,,18,109,,16.4,0
+,,,Emma Okumitey,,97,,,2,44,1,2,4,,4,2,1,1,,,5,3,,22.5,130.2,,15.8,0
+,,,Doreen Teye Kpiti,,129,,,2,44,1,2,4,,4,2,1,2,,,5,3,,29.6,139.5,,19,0
+,,,Winfred Amanartey,,114,,,1,32,1,2,2,,6,1,1,1,,,6,6,,41.4,139,,22.5,0
+,,,Alvan,,74,,,1,24,1,3,2,,1,1,1,1,,,6,4,,20.7,114.4,,17.2,0
+,,,Kplaha Joel,,113,,,1,48,1,2,5,Fish Monger,6,1,1,2,,,3,3,,24.3,124,,17.5,0
+,,,Amesimeku Princeway Apekey,,123,,,1,,,,,,,,,,,,,,,24.3,131,,16,0
+,,,Khadijah Ocansey,,62,,,2,,,,,,,,,,,,,,,17.2,112,,16.5,0
