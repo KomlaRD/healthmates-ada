@@ -66,14 +66,50 @@ ada <- read_sheet("https://docs.google.com/spreadsheets/d/1rkdOdIxIrAXuedT_4bbHx
                                 "head_circumference",
                                 "muac",
                                 "edema"),
-                  
-                  # Column types
                  
-                  col_types = "c?iiciciiiiiiiiicc?") 
+                 col_types = "TTDcDi?i??????i??????iddddd?")
+                  
+
+```
+
+
+
+
+```{r}
+# Export sheet data into csv
+
+export (ada, here ("data", "ada_full.csv"))
 ```
 
 
 ```{r}
+# Children less or equal to five
 
+ada_five<- ada %>% filter (age_mons <= 60)
+
+```
+
+
+```{r}
+# Children greater than five years
+
+ada_nine<- ada %>% filter (age_mons > 60)
+```
+
+
+```{r}
+# Export five year or less dataset
+
+export (ada_five, here("data","ada_five.xlsx"))
+```
+
+
+```{r}
+# Export dataset for children older than five years
+
+export (ada_nine, here("data","ada_nine.xlsx"))
+```
+```{r}
+export (ada, "full_data.xlsx")
 ```
 
