@@ -14,7 +14,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduction
+
 
 
 
@@ -122,16 +122,16 @@ export (ada_nine, here("data","ada_nine_final.csv"))
 
 
 
-```{r}
+```{r include=FALSE}
 ff_glimpse(ada)
 
 missing_glimpse(ada)
 ```
 
 
-## Data wrangling
 
-```{r ada-five-wrangling}
+
+```{r ada-five-wrangling,warning=FALSE}
 ada_five<- ada_five%>%
         mutate (
                 sex = factor(sex)%>%
@@ -201,7 +201,41 @@ ada_five<- ada_five%>%
                 edema = factor(edema)%>%
                         fct_recode("No" = "0",
                                    "Yes"= "1")%>%
-                        ff_label("Edema")
+                        ff_label("Edema"),
+                
+                age_mons = age_mons%>%
+                        ff_label("Age of child (months)"),
+                
+                age_mother = age_mother%>%
+                        ff_label("Age of mother (years)"),
+                
+                `num-child` = `num-child`%>%
+                        ff_label("Number of children"),
+                
+                hours_bf = hours_bf%>%
+                        ff_label("Hours after breastfeeding"),
+                
+                average_intake = average_intake%>%
+                        ff_label("Average intake of meals"),
+                
+                bwt = bwt%>%
+                        ff_label("Birth weight (kg)"),
+                
+                wt = wt%>%
+                        ff_label("Weight of child (kg)"),
+                
+                lenhei = lenhei%>%
+                        ff_label("Length/Height (cm)"),
+                
+                head_circumference = head_circumference%>%
+                        ff_label("Head circumference (cm)"),
+                
+                muac = muac%>%
+                        ff_label("Mid-upper arm circumference")
+                
+                
+                
+                
                         
                 
                                    )
@@ -213,7 +247,9 @@ ada_five_analysis <- ada_five%>%
 ```
 
 
-```{r ada-nine-wrangling}
+
+
+```{r ada-nine-wrangling,warning=FALSE}
 ada_nine<- ada_nine%>%
         mutate (
                 sex = factor(sex)%>%
@@ -283,21 +319,60 @@ ada_nine<- ada_nine%>%
                 edema = factor(edema)%>%
                         fct_recode("No" = "0",
                                    "Yes"= "1")%>%
-                        ff_label("Edema")
+                        ff_label("Edema"),
+                
+                age_mons = age_mons%>%
+                        ff_label("Age of child (months)"),
+                
+                age_mother = age_mother%>%
+                        ff_label("Age of mother (years)"),
+                
+                `num-child` = `num-child`%>%
+                        ff_label("Number of children"),
+                
+                hours_bf = hours_bf%>%
+                        ff_label("Hours after breastfeeding"),
+                
+                average_intake = average_intake%>%
+                        ff_label("Average intake of meals"),
+                
+                bwt = bwt%>%
+                        ff_label("Birth weight (kg)"),
+                
+                wt = wt%>%
+                        ff_label("Weight of child (kg)"),
+                
+                lenhei = lenhei%>%
+                        ff_label("Length/Height (cm)"),
+                
+                head_circumference = head_circumference%>%
+                        ff_label("Head circumference (cm)"),
+                
+                muac = muac%>%
+                        ff_label("Mid-upper arm circumference")
                         
                 
                                    )
 
-ada_nine_analysis <- ada_five%>%
+ada_nine_analysis <- ada_nine%>%
         select(-c(`start-time`,`end-time`, today, name, dob, display_age, age_manual, breasfeed_child))
 ```
 
 
 
 ***
+## Introduction
+
+
+
+***
+
 
 
 ## Exploratory data analysis
+
+
+### Table summary for children 5 years and below
 
 
 
@@ -307,9 +382,19 @@ tbl_summary(ada_five_analysis)
 
 
 
+### Table summary for children above 5 years
+
+
+
 ```{r}
 tbl_summary(ada_nine_analysis)
 ```
+
+
+
+
+### Skim data of children 5 years and below
+
 
 
 
@@ -318,21 +403,37 @@ skim(ada_five_analysis)
 ```
 
 
+
+### Skim data of children above 5 years
+
+
 ```{r}
 skim(ada_nine_analysis)
 ```
 
 
-```{r message=FALSE,warning=FALSE,cache=TRUE}
+
+
+### Correlation matrix of children 5 years and below
+
+
+
+```{r message=FALSE,warning=FALSE,cache=TRUE,warning=FALSE}
 ada_five_analysis%>%
         select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
         ggpairs(title = "Correlation matrix for children 5 years and below")
 ```
 
 
-```{r}
+
+
+### Correlation matrix of children older than 5 years
+
+
+
+```{r message=FALSE,message=FALSE,cache=TRUE,warning=FALSE}
 ada_nine_analysis%>%
-        select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
+        select(age_mons, age_mother, `num-child`, average_intake, wt, lenhei)%>%
         ggpairs(title = "Correlation matrix for children above 5 years")
 ```
 
@@ -348,7 +449,7 @@ ada_nine_analysis%>%
 
 
 
-**Sex of children**
+#### Sex of children
 
 
 
@@ -367,7 +468,7 @@ ggplot(data = ada_five_analysis, aes(sex, fill = sex))+
 
 
 
-**Educational level of mothers**
+#### Educational level of mothers
 
 
 
@@ -386,7 +487,7 @@ ggplot(data = ada_five_analysis, aes(educ_mum, fill = educ_mum))+
 ```
 
 
-**Marital status of mothers**
+#### Marital status of mothers
 
 
 
@@ -405,7 +506,7 @@ ggplot(data = ada_five_analysis, aes(marital_status, fill = marital_status))+
 ```
 
 
-**Occupation of mothers**
+#### Occupation of mothers
 
 
 
@@ -424,7 +525,7 @@ ggplot(data = ada_five_analysis, aes(occupation_mum, fill = occupation_mum))+
 ```
 
 
-**Income of mothers**
+#### Income of mothers
 
 
 
@@ -444,7 +545,7 @@ ggplot(data = ada_five_analysis, aes(income, fill = income))+
 
 
 
-**Duration of breastfeeding after birth**
+#### Duration of breastfeeding after birth
 
 
 
@@ -464,7 +565,7 @@ ggplot(data = ada_five_analysis, aes(duration_bf, fill = duration_bf))+
 
 
 
-**Breastfed the day before the survey**
+#### Breastfed the day before the survey
 
 
 
@@ -483,7 +584,7 @@ ggplot(data = ada_five_analysis, aes(day_bf, fill = day_bf))+
 ```
 
 
-**Age of introduction of complementary foods**
+#### Age of introduction of complementary foods
 
 
 
@@ -502,7 +603,9 @@ ggplot(data = ada_five_analysis, aes(age_intro_feed, fill = age_intro_feed))+
 ```
 
 
-**Edema**
+#### Edema
+
+
 
 ```{r}
 ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
@@ -526,7 +629,7 @@ ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
 ### Children above 5 years
 
 
-**Sex of children**
+#### Sex of children
 
 
 
@@ -545,11 +648,11 @@ ggplot(data = ada_nine_analysis, aes(sex, fill = sex))+
 
 
 
-**Educational level of mothers**
+#### Educational level of mothers
 
 
 
-```{r educational-plot}
+```{r}
 ggplot(data = ada_nine_analysis, aes(educ_mum, fill = educ_mum))+
         
         geom_bar()+
@@ -564,7 +667,7 @@ ggplot(data = ada_nine_analysis, aes(educ_mum, fill = educ_mum))+
 ```
 
 
-**Marital status of mothers**
+#### Marital status of mothers
 
 
 
@@ -583,7 +686,7 @@ ggplot(data = ada_nine_analysis, aes(marital_status, fill = marital_status))+
 ```
 
 
-**Occupation of mothers**
+#### Occupation of mothers
 
 
 
@@ -602,7 +705,7 @@ ggplot(data = ada_nine_analysis, aes(occupation_mum, fill = occupation_mum))+
 ```
 
 
-**Income of mothers**
+#### Income of mothers
 
 
 
@@ -622,7 +725,7 @@ ggplot(data = ada_nine_analysis, aes(income, fill = income))+
 
 
 
-**Duration of breastfeeding after birth**
+#### Duration of breastfeeding after birth
 
 
 
@@ -642,7 +745,7 @@ ggplot(data = ada_nine_analysis, aes(duration_bf, fill = duration_bf))+
 
 
 
-**Breastfed the day before the survey**
+#### Breastfed the day before the survey
 
 
 
@@ -661,7 +764,7 @@ ggplot(data = ada_nine_analysis, aes(day_bf, fill = day_bf))+
 ```
 
 
-**Age of introduction of complementary foods**
+#### Age of introduction of complementary foods
 
 
 
@@ -680,7 +783,9 @@ ggplot(data = ada_nine_analysis, aes(age_intro_feed, fill = age_intro_feed))+
 ```
 
 
-**Edema**
+#### Edema
+
+
 
 ```{r}
 ggplot(data = ada_nine_analysis, aes(edema, fill = edema))+
