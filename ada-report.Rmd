@@ -11,10 +11,12 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Introduction
+
+
 
 ```{r import, echo=FALSE}
 # Importing packages for project
@@ -29,7 +31,9 @@ pacman::p_load (
         skimr, # Overview of dataset
         GGally, # Correlation matrix
         tinytex, # Creating pdf documents
-        finalfit # Creating models
+        finalfit, # Creating models
+        ggthemes, # Plot themes
+        ggstatsplot # Inferential plots
         
         
 )
@@ -204,7 +208,8 @@ ada_five<- ada_five%>%
 
 
 
-
+ada_five_analysis <- ada_five%>%
+        select(-c(`start-time`,`end-time`, today, name, dob, display_age, age_manual, breasfeed_child))
 ```
 
 
@@ -282,16 +287,417 @@ ada_nine<- ada_nine%>%
                         
                 
                                    )
+
+ada_nine_analysis <- ada_five%>%
+        select(-c(`start-time`,`end-time`, today, name, dob, display_age, age_manual, breasfeed_child))
 ```
+
+
+
+***
 
 
 ## Exploratory data analysis
 
 
 
+```{r}
+tbl_summary(ada_five_analysis)
+```
+
+
+
+```{r}
+tbl_summary(ada_nine_analysis)
+```
+
+
+
+```{r}
+skim(ada_five_analysis)
+```
+
+
+```{r}
+skim(ada_nine_analysis)
+```
+
+
+```{r message=FALSE,warning=FALSE,cache=TRUE}
+ada_five_analysis%>%
+        select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
+        ggpairs(title = "Correlation matrix for children 5 years and below")
+```
+
+
+```{r}
+ada_nine_analysis%>%
+        select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
+        ggpairs(title = "Correlation matrix for children above 5 years")
+```
+
+
+***
+
 
 ## Visualisations
 
+
+
+### Children 5 years and below
+
+
+
+**Sex of children**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(sex, fill = sex))+
+        
+        geom_bar()+
+        
+        labs(title="Sex of children",x="Sex", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")
+```
+
+
+
+
+**Educational level of mothers**
+
+
+
+```{r educational-plot}
+ggplot(data = ada_five_analysis, aes(educ_mum, fill = educ_mum))+
+        
+        geom_bar()+
+        
+        labs(title="Educational level of mothers",x="Educational level", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Marital status of mothers**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(marital_status, fill = marital_status))+
+        
+        geom_bar()+
+        
+        labs(title="Marital status of mothers",x="Marital status", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Occupation of mothers**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(occupation_mum, fill = occupation_mum))+
+        
+        geom_bar()+
+        
+        labs(title="Occupation of mothers",x="Occupation", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Income of mothers**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(income, fill = income))+
+        
+        geom_bar()+
+        
+        labs(title="Income of mothers",x="Income", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+
+**Duration of breastfeeding after birth**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(duration_bf, fill = duration_bf))+
+        
+        geom_bar()+
+        
+        labs(title="Duration of breastfeeding after child was delivered",x="Duration", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+
+**Breastfed the day before the survey**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(day_bf, fill = day_bf))+
+        
+        geom_bar()+
+        
+        labs(title="Was child breastfed the day before the survey",x="Response", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Age of introduction of complementary foods**
+
+
+
+```{r}
+ggplot(data = ada_five_analysis, aes(age_intro_feed, fill = age_intro_feed))+
+        
+        geom_bar()+
+        
+        labs(title="Age of introducing complementary foods",x="Age of introduction", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Edema**
+
+```{r}
+ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
+        
+        geom_bar()+
+        
+        labs(title="Edema",x="Edema", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+
+***
+
+
+### Children above 5 years
+
+
+**Sex of children**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(sex, fill = sex))+
+        
+        geom_bar()+
+        
+        labs(title="Sex of children",x="Sex", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")
+```
+
+
+
+
+**Educational level of mothers**
+
+
+
+```{r educational-plot}
+ggplot(data = ada_nine_analysis, aes(educ_mum, fill = educ_mum))+
+        
+        geom_bar()+
+        
+        labs(title="Educational level of mothers",x="Educational level", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Marital status of mothers**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(marital_status, fill = marital_status))+
+        
+        geom_bar()+
+        
+        labs(title="Marital status of mothers",x="Marital status", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Occupation of mothers**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(occupation_mum, fill = occupation_mum))+
+        
+        geom_bar()+
+        
+        labs(title="Occupation of mothers",x="Occupation", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Income of mothers**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(income, fill = income))+
+        
+        geom_bar()+
+        
+        labs(title="Income of mothers",x="Income", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+
+**Duration of breastfeeding after birth**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(duration_bf, fill = duration_bf))+
+        
+        geom_bar()+
+        
+        labs(title="Duration of breastfeeding after child was delivered",x="Duration", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+
+**Breastfed the day before the survey**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(day_bf, fill = day_bf))+
+        
+        geom_bar()+
+        
+        labs(title="Was child breastfed the day before the survey",x="Response", y = "Frequency",fill="Educational level")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Age of introduction of complementary foods**
+
+
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(age_intro_feed, fill = age_intro_feed))+
+        
+        geom_bar()+
+        
+        labs(title="Age of introducing complementary foods",x="Age of introduction", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+**Edema**
+
+```{r}
+ggplot(data = ada_nine_analysis, aes(edema, fill = edema))+
+        
+        geom_bar()+
+        
+        labs(title="Edema",x="Edema", y = "Frequency")+
+        
+        theme_hc()+
+        
+        guides(fill="none")+
+        
+  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+```
+
+
+***
 
 
 ## Conclusion
