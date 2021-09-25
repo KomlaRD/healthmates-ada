@@ -17,10 +17,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 
-```{r packages, echo=FALSE}
+```{r package-setup, echo=FALSE}
 # Importing packages for project
 
 knitr::read_chunk("packages.R")
+```
+
+
+```{r packages}
+
 ```
 
 
@@ -332,7 +337,7 @@ tbl_summary(ada_five)
 
 
 ```{r}
-tbl_summary(ada_nine_analysis)
+tbl_summary(ada_nine)
 ```
 
 
@@ -344,7 +349,7 @@ tbl_summary(ada_nine_analysis)
 
 
 ```{r}
-skim(ada_five_analysis)
+skim(ada_five)
 ```
 
 
@@ -353,7 +358,7 @@ skim(ada_five_analysis)
 
 
 ```{r}
-skim(ada_nine_analysis)
+skim(ada_nine)
 ```
 
 
@@ -364,7 +369,7 @@ skim(ada_nine_analysis)
 
 
 ```{r message=FALSE,warning=FALSE,cache=TRUE,warning=FALSE}
-ada_five_analysis%>%
+ada_five%>%
         select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
         ggpairs(title = "Correlation matrix for children 5 years and below")
 ```
@@ -377,7 +382,7 @@ ada_five_analysis%>%
 
 
 ```{r message=FALSE,message=FALSE,cache=TRUE,warning=FALSE}
-ada_nine_analysis%>%
+ada_nine%>%
         select(age_mons, age_mother, `num-child`, average_intake, wt, lenhei)%>%
         ggpairs(title = "Correlation matrix for children above 5 years")
 ```
@@ -399,7 +404,7 @@ ada_nine_analysis%>%
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(sex, fill = sex))+
+ggplot(data = ada_five, aes(sex, fill = sex))+
         
         geom_bar()+
         
@@ -418,7 +423,7 @@ ggplot(data = ada_five_analysis, aes(sex, fill = sex))+
 
 
 ```{r educational-plot}
-ggplot(data = ada_five_analysis, aes(educ_mum, fill = educ_mum))+
+ggplot(data = ada_five, aes(educ_mum, fill = educ_mum))+
         
         geom_bar()+
         
@@ -437,7 +442,7 @@ ggplot(data = ada_five_analysis, aes(educ_mum, fill = educ_mum))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(marital_status, fill = marital_status))+
+ggplot(data = ada_five, aes(marital_status, fill = marital_status))+
         
         geom_bar()+
         
@@ -456,7 +461,7 @@ ggplot(data = ada_five_analysis, aes(marital_status, fill = marital_status))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(occupation_mum, fill = occupation_mum))+
+ggplot(data = ada_five, aes(occupation_mum, fill = occupation_mum))+
         
         geom_bar()+
         
@@ -475,7 +480,7 @@ ggplot(data = ada_five_analysis, aes(occupation_mum, fill = occupation_mum))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(income, fill = income))+
+ggplot(data = ada_five, aes(income, fill = income))+
         
         geom_bar()+
         
@@ -495,7 +500,7 @@ ggplot(data = ada_five_analysis, aes(income, fill = income))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(duration_bf, fill = duration_bf))+
+ggplot(data = ada_five, aes(duration_bf, fill = duration_bf))+
         
         geom_bar()+
         
@@ -515,17 +520,15 @@ ggplot(data = ada_five_analysis, aes(duration_bf, fill = duration_bf))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(day_bf, fill = day_bf))+
+ggplot(data = ada_five, aes(day_bf, fill = day_bf))+
         
         geom_bar()+
         
-        labs(title="Was child breastfed the day before the survey",x="Response", y = "Frequency",fill="Educational level")+
+        labs(title="Was child breastfed the day before the survey",x="Response", y = "Frequency")+
         
         theme_hc()+
         
-        guides(fill="none")+
-        
-  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+        guides(fill="none")
 ```
 
 
@@ -534,7 +537,7 @@ ggplot(data = ada_five_analysis, aes(day_bf, fill = day_bf))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(age_intro_feed, fill = age_intro_feed))+
+ggplot(data = ada_five, aes(age_intro_feed, fill = age_intro_feed))+
         
         geom_bar()+
         
@@ -553,7 +556,7 @@ ggplot(data = ada_five_analysis, aes(age_intro_feed, fill = age_intro_feed))+
 
 
 ```{r}
-ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
+ggplot(data = ada_five, aes(edema, fill = edema))+
         
         geom_bar()+
         
@@ -561,9 +564,7 @@ ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
         
         theme_hc()+
         
-        guides(fill="none")+
-        
-  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+        guides(fill="none")
 ```
 
 
@@ -579,7 +580,7 @@ ggplot(data = ada_five_analysis, aes(edema, fill = edema))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(sex, fill = sex))+
+ggplot(data = ada_nine, aes(sex, fill = sex))+
         
         geom_bar()+
         
@@ -598,7 +599,7 @@ ggplot(data = ada_nine_analysis, aes(sex, fill = sex))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(educ_mum, fill = educ_mum))+
+ggplot(data = ada_nine, aes(educ_mum, fill = educ_mum))+
         
         geom_bar()+
         
@@ -617,7 +618,7 @@ ggplot(data = ada_nine_analysis, aes(educ_mum, fill = educ_mum))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(marital_status, fill = marital_status))+
+ggplot(data = ada_nine, aes(marital_status, fill = marital_status))+
         
         geom_bar()+
         
@@ -655,7 +656,7 @@ ggplot(data = ada_nine_analysis, aes(occupation_mum, fill = occupation_mum))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(income, fill = income))+
+ggplot(data = ada_nine, aes(income, fill = income))+
         
         geom_bar()+
         
@@ -675,7 +676,7 @@ ggplot(data = ada_nine_analysis, aes(income, fill = income))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(duration_bf, fill = duration_bf))+
+ggplot(data = ada_nine, aes(duration_bf, fill = duration_bf))+
         
         geom_bar()+
         
@@ -695,7 +696,7 @@ ggplot(data = ada_nine_analysis, aes(duration_bf, fill = duration_bf))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(day_bf, fill = day_bf))+
+ggplot(data = ada_nine, aes(day_bf, fill = day_bf))+
         
         geom_bar()+
         
@@ -703,9 +704,7 @@ ggplot(data = ada_nine_analysis, aes(day_bf, fill = day_bf))+
         
         theme_hc()+
         
-        guides(fill="none")+
-        
-  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+        guides(fill="none")
 ```
 
 
@@ -714,7 +713,7 @@ ggplot(data = ada_nine_analysis, aes(day_bf, fill = day_bf))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(age_intro_feed, fill = age_intro_feed))+
+ggplot(data = ada_nine, aes(age_intro_feed, fill = age_intro_feed))+
         
         geom_bar()+
         
@@ -733,7 +732,7 @@ ggplot(data = ada_nine_analysis, aes(age_intro_feed, fill = age_intro_feed))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(edema, fill = edema))+
+ggplot(data = ada_nine, aes(edema, fill = edema))+
         
         geom_bar()+
         
@@ -741,9 +740,7 @@ ggplot(data = ada_nine_analysis, aes(edema, fill = edema))+
         
         theme_hc()+
         
-        guides(fill="none")+
-        
-  theme(axis.text.x = element_text(angle = 60,hjust = 1))
+        guides(fill="none")
 ```
 
 
