@@ -275,11 +275,21 @@ ada_nine<- ada_nine%>%
                         ff_label("Head circumference (cm)"),
                 
                 muac = muac%>%
-                        ff_label("Mid-upper arm circumference")
+                        ff_label("Mid-upper arm circumference"),
+                
+                 baz_factor = case_when(
+                                       BAZ < -2 ~ "Acute malnutrition",
+                                       BAZ >= -2 ~ "Normal")%>%
+                ff_label("Acute malnutrition"),
+                
+                haz_factor = case_when(
+                                      HAZ < -2  ~ "Chronic malnutrition",
+                                      HAZ >= -2 ~ "Normal"
+                )%>%
+                ff_label("Chronic malnutrition")
                         
                 
                                    )
-
 
 ```
 
