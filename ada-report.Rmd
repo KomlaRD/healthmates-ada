@@ -17,13 +17,24 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 
-
-
 ```{r packages, echo=FALSE}
 # Importing packages for project
 
 knitr::read_chunk("packages.R")
 ```
+
+
+```{r import-five-data}
+ada_five<- import (here("data","ada_five_final.csv")) #Import dataset for children 5 years and below
+```
+
+
+
+
+```{r import-above-five-data}
+ada_nine<- import (here("data","ada_nine_final.csv")) #Import dataset for children older than 5 years
+```
+
 
 
 
