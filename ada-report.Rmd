@@ -1,8 +1,7 @@
 ---
-title: |
-  ![]('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/healthmates.JPG'){width=1in}  
-  Ada malnutrition report
-author: "Healthmates Nutrition"
+title: "Project report"
+subtitle: "Ada Foah"
+author: "Healthmates Nutrition Limited"
 date: "8/28/2021"
 institute: "Healthmates Nutrition Limited"
 output:
@@ -34,6 +33,9 @@ knitr::read_chunk("packages.R")
 ```{r import-five-data}
 ada_five<- import (here("data","ada_five_final.csv")) #Import dataset for children 5 years and below
 
+ada_five<- clean_names(ada_five)
+
+ada_five$num_child
 ```
 
 
@@ -41,6 +43,8 @@ ada_five<- import (here("data","ada_five_final.csv")) #Import dataset for childr
 
 ```{r import-above-five-data}
 ada_nine<- import (here("data","ada_nine_final.csv")) #Import dataset for children older than 5 years
+
+ada_nine <- clean_names(ada_nine)
 ```
 
 
@@ -97,14 +101,14 @@ ada_five<- ada_five%>%
                         fct_recode("No"="0",
                                    "Yes" = "1",
                                    "Don't know" = "9")%>%
-                        ff_label("Breastfeed"),
+                        ff_label("Did you ever breastfeed child?"),
                 
                 duration_bf = factor(duration_bf)%>%
                         fct_recode("Immediately" = "1",
                                    "Within first hour" = "2",
                                    "Hours" = "3",
                                    "Don't know" = "9")%>%
-                        ff_label("Duration of breastfeeding"),
+                        ff_label("Duration of breastfeeding after delivery"),
                 
                 day_bf = factor (day_bf)%>%
                         fct_recode("No" = "0",
@@ -133,11 +137,11 @@ ada_five<- ada_five%>%
                 age_mother = age_mother%>%
                         ff_label("Age of mother (years)"),
                 
-                `num-child` = `num-child`%>%
+                 num_child = num_child%>%
                         ff_label("Number of children"),
                 
                 hours_bf = hours_bf%>%
-                        ff_label("Hours after breastfeeding"),
+                        ff_label("How many hours after delivery did you breastfeed child?"),
                 
                 average_intake = average_intake%>%
                         ff_label("Average intake of meals"),
@@ -242,14 +246,14 @@ ada_nine<- ada_nine%>%
                         fct_recode("No"="0",
                                    "Yes" = "1",
                                    "Don't know" = "9")%>%
-                        ff_label("Breastfeed"),
+                        ff_label("Did you ever breastfeed child?"),
                 
                 duration_bf = factor(duration_bf)%>%
                         fct_recode("Immediately" = "1",
                                    "Within first hour" = "2",
                                    "Hours" = "3",
                                    "Don't know" = "9")%>%
-                        ff_label("Duration of breastfeeding"),
+                        ff_label("Duration of breastfeeding after delivery"),
                 
                 day_bf = factor (day_bf)%>%
                         fct_recode("No" = "0",
@@ -278,17 +282,16 @@ ada_nine<- ada_nine%>%
                 age_mother = age_mother%>%
                         ff_label("Age of mother (years)"),
                 
-                `num-child` = `num-child`%>%
+                num_child = num_child%>%
                         ff_label("Number of children"),
                 
                 hours_bf = hours_bf%>%
-                        ff_label("Hours after breastfeeding"),
+                        ff_label("How many hours after delivery before child was breastfed?"),
                 
                 average_intake = average_intake%>%
                         ff_label("Average intake of meals"),
                 
                 bwt = bwt%>%
-                        as.numeric(bwt)%>%
                         ff_label("Birth weight (kg)"),
                 
                 wt = wt%>%
@@ -302,10 +305,6 @@ ada_nine<- ada_nine%>%
                 
                 muac = muac%>%
                         ff_label("Mid-upper arm circumference"),
-                
-                breastfeed_child = breastfeed_child%>%
-                        ff_label("Did you ever breastfeed child?"),
-                
                 
                 
                 HAZ = HAZ%>%
@@ -337,18 +336,28 @@ ada_nine<- ada_nine%>%
 
 
 ***
-## Introduction
-
-
 ## Summary
+
+
+
 
 ***
 
+## Introduction
+
+
+
+
+***
 
 ## Nutrition assessment
 
 
-## Exploratory data analysis
+
+***
+
+
+## Descriptive statistics
 
 
 ```{r under-five, fig.cap='Growth indicators for children under five compared to WHO standards'}
@@ -357,7 +366,7 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 
 
 
-### Table summary for children 5 years and below
+#### Table summary for children 5 years and below
 
 
 
@@ -390,63 +399,63 @@ ada_five%>%
 
 
 
-### Table summary for children above 5 years
+#### Table summary for children above 5 years
 
 
 
 ```{r}
 ada_nine%>%
   select(-c(breasfeed_child, head_circumference))%>%
-  tbl_summary(statistic = list(
+  tbl_summary(type= list(c(average_intake,bwt,num_child) ~ "continuous"), 
+              statistic = list(
     all_continuous() ~ "{mean} ({sd})"
   ))
 ```
 
 
 
-
-### Skim data of children 5 years and below
-
-
-
-
-```{r}
-skim(ada_five)
-```
-
-
-
-### Skim data of children above 5 years
-
-
-```{r}
-skim(ada_nine)
+```{r include=FALSE}
+skim(ada_five) # Skim data of children 5 years and below
 ```
 
 
 
 
-### Correlation matrix of children 5 years and below
+
+
+```{r include=FALSE}
+skim(ada_nine) # Skim data of children above 5 years
+```
 
 
 
-```{r message=FALSE,warning=FALSE,cache=TRUE,warning=FALSE}
+
+
+
+
+
+```{r message=FALSE,warning=FALSE,cache=TRUE,warning=FALSE,include=FALSE}
 ada_five%>%
         select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
         ggpairs(title = "Correlation matrix for children 5 years and below")
+### Correlation matrix of children 5 years and below
+
+
 ```
 
 
 
 
-### Correlation matrix of children older than 5 years
 
 
 
-```{r message=FALSE,message=FALSE,cache=TRUE,warning=FALSE}
+
+```{r message=FALSE,message=FALSE,cache=TRUE,warning=FALSE,include=FALSE}
 ada_nine%>%
         select(age_mons, age_mother, `num-child`, average_intake, wt, lenhei)%>%
         ggpairs(title = "Correlation matrix for children above 5 years")
+
+### Correlation matrix of children older than 5 years
 ```
 
 
@@ -809,6 +818,18 @@ ggplot(data = ada_nine, aes(edema, fill = edema))+
 ***
 
 
+## Nutrition Intervention
+
+
+
+
+***
+
+
 ## Conclusion
+
+
+
+
 
 
