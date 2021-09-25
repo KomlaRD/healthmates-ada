@@ -155,6 +155,24 @@ ada_five<- ada_five%>%
                 muac = muac%>%
                         ff_label("Mid-upper arm circumference"),
                 
+                WHZ = WHZ%>%
+                        ff_label("Weight-for-height z-score"),
+                
+                HAZ = HAZ%>%
+                        ff_label("Height-for-age z-score"),
+                
+                WAZ = WAZ%>%
+                       ff_label("Weight-for-age z-score"),
+                
+                BAZ = BAZ%>%
+                       ff_label("BMI-for-age z-score"),
+                
+                HCZ = HCZ%>%
+                      ff_label("Head circumference z-score"),
+                
+                MUACZ = MUACZ%>%
+                      ff_label("MUAC z-score"),
+                
                 whz_factor = case_when(
                                        WHZ < -2 ~ "Acute malnutrition",
                                        WHZ >= -2 ~ "Normal")%>%
@@ -282,16 +300,31 @@ ada_nine<- ada_nine%>%
                 muac = muac%>%
                         ff_label("Mid-upper arm circumference"),
                 
-                 baz_factor = case_when(
+                breastfeed_child = breastfeed_child%>%
+                        ff_label("Did you ever breastfeed child?"),
+                
+                
+                
+                HAZ = HAZ%>%
+                        ff_label("Height-for-age z-score"),
+                
+                WAZ = WAZ%>%
+                       ff_label("Weight-for-age z-score"),
+                
+                BAZ = BAZ%>%
+                       ff_label("BMI-for-age z-score"),
+                
+                
+                baz_factor = case_when(
                                        BAZ < -2 ~ "Acute malnutrition",
                                        BAZ >= -2 ~ "Normal")%>%
-                ff_label("Acute malnutrition"),
+                       ff_label("Acute malnutrition"),
                 
                 haz_factor = case_when(
                                       HAZ < -2  ~ "Chronic malnutrition",
                                       HAZ >= -2 ~ "Normal"
                 )%>%
-                ff_label("Chronic malnutrition")
+                       ff_label("Chronic malnutrition")
                         
                 
                                    )
@@ -327,7 +360,10 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 
 
 ```{r}
-tbl_summary(ada_five)
+tbl_summary(ada_five,
+            statistic = list(
+              
+            ))
 ```
 
 
@@ -337,7 +373,11 @@ tbl_summary(ada_five)
 
 
 ```{r}
-tbl_summary(ada_nine)
+ada_nine%>%
+  select(-c(breasfeed_child, head_circumference))%>%
+  tbl_summary(statistic = list(
+    all_continuous() ~ "{mean} ({sd})"
+  ))
 ```
 
 
@@ -637,7 +677,7 @@ ggplot(data = ada_nine, aes(marital_status, fill = marital_status))+
 
 
 ```{r}
-ggplot(data = ada_nine_analysis, aes(occupation_mum, fill = occupation_mum))+
+ggplot(data = ada_nine, aes(occupation_mum, fill = occupation_mum))+
         
         geom_bar()+
         
