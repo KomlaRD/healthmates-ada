@@ -26,6 +26,7 @@ knitr::read_chunk("packages.R")
 
 ```{r import-five-data}
 ada_five<- import (here("data","ada_five_final.csv")) #Import dataset for children 5 years and below
+
 ```
 
 
@@ -43,14 +44,6 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 ```
 
 
-
-
-
-```{r include=FALSE}
-ff_glimpse(ada)
-
-missing_glimpse(ada)
-```
 
 
 
@@ -83,7 +76,7 @@ ada_five<- ada_five%>%
                                    "Trader" = "2",
                                    "Dressmaker" = "3",
                                    "Hairdresser" = "4",
-                                   "Others" = "5")%>%
+                                   "Unemployed" = "5")%>%
                         ff_label("Occupation"),
                 
                 income = factor(income)%>%
@@ -155,19 +148,28 @@ ada_five<- ada_five%>%
                         ff_label("Head circumference (cm)"),
                 
                 muac = muac%>%
-                        ff_label("Mid-upper arm circumference")
+                        ff_label("Mid-upper arm circumference"),
+                
+                whz_factor = case_when(
+                                       WHZ < -2 ~ "Acute malnutrition",
+                                       WHZ >= -2 ~ "Normal")%>%
+                ff_label("Acute malnutrition"),
+                
+                haz_factor = case_when(
+                                      HAZ < -2  ~ "Chronic malnutrition",
+                                      HAZ >= -2 ~ "Normal"
+                )%>%
+                ff_label("Chronic malnutrition")
+                
+                
                 
                 
                 
                 
                         
                 
-                                   )
+        )
 
-
-
-ada_five_analysis <- ada_five%>%
-        select(-c(`start-time`,`end-time`, today, name, dob, display_age, age_manual, breasfeed_child))
 ```
 
 
@@ -278,8 +280,7 @@ ada_nine<- ada_nine%>%
                 
                                    )
 
-ada_nine_analysis <- ada_nine%>%
-        select(-c(`start-time`,`end-time`, today, name, dob, display_age, age_manual, breasfeed_child))
+
 ```
 
 
@@ -298,7 +299,12 @@ ada_nine_analysis <- ada_nine%>%
 
 ## Exploratory data analysis
 
-![malnutrition](/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/ada_five_anthro_zscores_distributions.png)
+
+```{r under-five, fig.cap='Growth indicators for children under five compared to WHO standards'}
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/ada_five_anthro_zscores_distributions.png')
+```
+
+
 
 ### Table summary for children 5 years and below
 
@@ -306,7 +312,7 @@ ada_nine_analysis <- ada_nine%>%
 
 
 ```{r}
-tbl_summary(ada_five_analysis)
+tbl_summary(ada_five)
 ```
 
 
