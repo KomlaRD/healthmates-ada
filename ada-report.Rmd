@@ -1,5 +1,7 @@
 ---
-title: "Ada malnutrition report"
+title: |
+  ![]('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/healthmates.JPG'){width=1in}  
+  Ada malnutrition report
 author: "Healthmates Nutrition"
 date: "8/28/2021"
 institute: "Healthmates Nutrition Limited"
@@ -286,6 +288,7 @@ ada_nine<- ada_nine%>%
                         ff_label("Average intake of meals"),
                 
                 bwt = bwt%>%
+                        as.numeric(bwt)%>%
                         ff_label("Birth weight (kg)"),
                 
                 wt = wt%>%
@@ -360,10 +363,29 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 
 
 ```{r}
-tbl_summary(ada_five,
-            statistic = list(
+ada_five%>%
+  select(-c(breasfeed_child, Flag))%>%
+  tbl_summary(type = list(average_intake ~ "continuous"),
+                          statistic = 
+                          c(age_mons, 
+                            age_mother,
+                            bwt,
+                            wt,
+                            lenhei,
+                            average_intake,
+                            head_circumference,
+                            muac,
+                            WHZ,
+                            WAZ,
+                            BAZ,
+                            HCZ,
+                            MUACZ
+                           
+                            
+                            )
+                                  ~ "{mean} ({sd})"
               
-            ))
+            )
 ```
 
 
