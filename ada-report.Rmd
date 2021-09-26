@@ -34,8 +34,6 @@ knitr::read_chunk("packages.R")
 ada_five<- import (here("data","ada_five_final.csv")) #Import dataset for children 5 years and below
 
 ada_five<- clean_names(ada_five)
-
-ada_five$num_child
 ```
 
 
@@ -59,62 +57,125 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 
 
 
-```{r ada-five-wrangling,warning=FALSE}
+```{r five-wrangling,warning=FALSE,message=FALSE,warning=FALSE}
 knitr::read_chunk("ada_five_wrangling.R")
 ```
 
-```{r ada-five-transformation}
+
+
+```{r ada-five-transformation,warning=FALSE}
 
 ```
 
 
 
-```{r ada-nine-wrangling,warning=FALSE}
+```{r nine,warning=FALSE,message=FALSE,warning=FALSE}
 knitr::read_chunk("ada_nine_wrangling.R")
 ```
 
-
-
-```{r ada-nine-transformation}
+```{r ada-nine-transformation,warning=FALSE}
 
 ```
 
 
+```{r}
+
+```
+
+
+
+
+
+## 1. Summary
+
+
 ***
-## Summary
 
 
 
-
-***
-
-## Introduction
+## 2. Introduction
 
 The Healthmates Nutrition team with the support of Madam Saeed as a birthday gift visited Ada Foah on 20th August, 2021. The objective of the project was to assess and identify malnutrition among children in the community. The initial plan was to work with children five years and below (Group 1). However, children older than five years (Group 2) also reported to the project site. Thus, the project included children from `r min(ada_five$age_mons)` months to `r max(ada_nine$age_mons)` months. In all, `r nrow(ada_five) + nrow(ada_nine)` children were recruited in this one-day project. 
 
-The Healthmates Nutrition team comprised of `r [Joseph Bamfo Danquah]()` who is the team lead, `r [Eric Anku]()`, programmes director, `r [Pious Barimah Sarfo]()`, a level 400 dietetic student from University of Cape Coast who volunteered for the project and, Abena Mantabea Asa-Atiemo, a level 300 student who also volunteered on the project. 
+The Healthmates Nutrition team comprised of [Joseph Bamfo Danquah](https://www.linkedin.com/in/joseph-danquah-b2959577/), team lead; [Eric Anku](https://www.linkedin.com/in/eric-a-3709a191/), programs director; [Pious Barimah Sarfo](https://www.linkedin.com/in/pius-sarfo-buobu-a85a94123/), a level 400 dietetic student from University of Cape Coast who volunteered for the project and, Abena Mantebea Asa-Atiemo, a level 300 student who also volunteered on the project. 
+
+Prevalence of acute (WHZ < - 2SD) and chronic malnutrition (HAZ < - 2SD) in Group 1 was 13% and 25% respectively
+
+Prevalence of acute (BAZ < - 2SD) and chronic malnutrition (HAZ < - 2SD) in Group 2 was 11% and 17% respectively.
+
+Descriptive statistics for Group 1 and Group 2 can be seen below.
+
+
+```{r intro-pics, fig.hold='hold', fig.cap='Madam Saeed/Project site'}
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/madam-saeed.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/project-site.jpeg')
+```
 
 
 ***
 
-## Nutrition assessment
+## 3. Nutrition assessment
+
 
 **Anthropometry**
 
-Anthropometric measurements performed included weight, height/length, mid-upper arm circumference, head circumference 
+
+
+Anthropometric measurements performed included weight, height/length, mid-upper arm circumference, and head circumference.
+
+```{r assessment, fig.cap='Anthropometry', fig.hold='hold', out.width='75%'}
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/height-measurement.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/muac.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/muac-two.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/weight.jpeg')
+```
+
 
 
 **Dietary assessment**
 
+
+
+Questions regard food and nutrition related history were regarding breastfeeding overall, breastfeeding and complementary feeding practices. Also, the average intake of meals provided to eligible participants were also assessed.
+
+
+```{r fig.cap='Interviews', fig.hold='hold'}
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/data-collection.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/data-collection-two.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/data-collection-three.jpeg')
+```
+
+
+
+
 **Environmental, behavioural and social**
+
+
+
+Assessment indicators in this domain include age of the child, sex of the child, age of mother, marital status of the mother, educational level of the mother, occupation of the mother, number of children including still births, and income level of mother.
+
 
 
 **Clinical assessment**
 
+
+
+Edema was assessed in this domain.
+
+
+
+
 ***
 
 
-## Descriptive statistics
+## 4. Descriptive statistics
+
 
 
 ```{r under-five, fig.cap='Growth indicators for children under five compared to WHO standards'}
@@ -123,16 +184,23 @@ knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analy
 
 
 
+***
+
+
 #### Table summary for children 5 years and below
 
 
 
 
+The average age of children was `r round(mean(ada_five$age_mons), digits =2)` months. There were more females (22, 55%) than males(18, 45%) in the sample. The mean age of mothers was `r round(mean(ada_five$age_mother),digits = 1)` years. Majority of the mothers were married (40%). Majority of the mothers had a Junior High education (38%) followed by elementary/primary education (35%). Trading (72%) was the most frequent reported occupation among mothers in the sample. The average number of children per mother was `r median(ada_five$num_child, na.rm = TRUE)`. Majority of the mothers (86%) earn less than 500 cedis in a month. Breastfeeding for most mothers was initiated within the first hour after delivery (60%). Complementary foods are typically introduced after 6 months. The average number of meals eaten by children who take complementary foods was `r round(mean(ada_five$average_intake, na.rm = TRUE), digits=0)` times in a day. The average birth weight was `r round(mean(ada_five$bwt, na.rm = TRUE), digits = 1)` kg. The average weight and length/height of children in the sample was `r round(mean(ada_five$wt), digits = 1)` kg and `r round(mean(ada_five$lenhei), digits = 1)` cm. The average head circumference was `r round(mean(ada_five$head_circumference, na.rm = TRUE), digits = 1)` cm. The average mid-upper arm circumference was `r round(mean(ada_five$muac, na.rm = TRUE), digits = 1)`. The average weight-for-height and height-for-age was `r round(mean(ada_five$whz, na.rm=TRUE), digits = 1)` and `r round(mean(ada_five$haz), digits = 1)`.
+
+
+
 ```{r}
 ada_five%>%
-  select(-c(breasfeed_child, Flag))%>%
-  tbl_summary(type = list(average_intake ~ "continuous"),
-                          statistic = 
+  select(-c(breasfeed_child, flag))%>%
+  tbl_summary(type = list(c(average_intake, num_child, hours_bf) ~ 'continuous'),
+    statistic = 
                           c(age_mons, 
                             age_mother,
                             bwt,
@@ -141,11 +209,11 @@ ada_five%>%
                             average_intake,
                             head_circumference,
                             muac,
-                            WHZ,
-                            WAZ,
-                            BAZ,
-                            HCZ,
-                            MUACZ
+                            whz,
+                            waz,
+                            baz,
+                            hcz,
+                            muacz
                            
                             
                             )
@@ -155,15 +223,21 @@ ada_five%>%
 ```
 
 
+***
+
 
 #### Table summary for children above 5 years
+
+
+
+The average age of children was `r round(mean(ada_nine$age_mons), digits =2)` months. There were more males (22, 61%) than females(14, 39%) in the sample. The mean age of mothers was `r round(mean(ada_nine$age_mother, na.rm = TRUE),digits = 1)` years. Majority of the mothers were married (59%). Majority of the mothers had never attended school (41%). Trading (85%) was the most frequent reported occupation among mothers in the sample. The average number of children per mother was `r mean(ada_nine$num_child, na.rm = TRUE)`. Majority of the mothers (82%) earn less than 500 cedis in a month. Breastfeeding for most mothers was initiated immediately after delivery (50%). Complementary foods are typically introduced at 6 months. The limitation of this finding is the number of non-response by mothers (25 out of 36) which may provide an inaccurate picture. The average number of meals eaten by children who take complementary foods was `r round(mean(ada_nine$average_intake, na.rm = TRUE), digits=0)` times in a day. The average birth weight was `r round(mean(ada_nine$bwt, na.rm = TRUE), digits = 1)` kg. The average weight and length/height of children in the sample was `r round(mean(ada_nine$wt), digits = 1)` kg and `r round(mean(ada_nine$lenhei), digits = 1)` cm. The average mid-upper arm circumference was `r round(mean(ada_nine$muac, na.rm = TRUE), digits = 1)`. The average bmi-for-age and height-for-age was `r round(mean(ada_nine$baz, na.rm=TRUE), digits = 1)` and `r round(mean(ada_nine$haz), digits = 1)`.
 
 
 
 ```{r}
 ada_nine%>%
   select(-c(breasfeed_child, head_circumference))%>%
-  tbl_summary(type= list(c(average_intake,bwt,num_child) ~ "continuous"), 
+  tbl_summary(type= list(c(average_intake,bwt,num_child, hours_bf) ~ "continuous"), 
               statistic = list(
     all_continuous() ~ "{mean} ({sd})"
   ))
@@ -193,7 +267,7 @@ skim(ada_nine) # Skim data of children above 5 years
 
 ```{r message=FALSE,warning=FALSE,cache=TRUE,warning=FALSE,include=FALSE}
 ada_five%>%
-        select(age_mons, age_mother, `num-child`, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
+        select(age_mons, age_mother, num_child, average_intake, bwt, wt, lenhei, head_circumference, muac)%>%
         ggpairs(title = "Correlation matrix for children 5 years and below")
 ### Correlation matrix of children 5 years and below
 
@@ -209,7 +283,7 @@ ada_five%>%
 
 ```{r message=FALSE,message=FALSE,cache=TRUE,warning=FALSE,include=FALSE}
 ada_nine%>%
-        select(age_mons, age_mother, `num-child`, average_intake, wt, lenhei)%>%
+        select(age_mons, age_mother, num_child, average_intake, wt, lenhei)%>%
         ggpairs(title = "Correlation matrix for children above 5 years")
 
 ### Correlation matrix of children older than 5 years
@@ -219,11 +293,11 @@ ada_nine%>%
 ***
 
 
-## Visualisations
+## 5. Visualisations
 
 
 
-### Children 5 years and below
+### Children 5 years and below (Group 1)
 
 
 
@@ -383,7 +457,7 @@ ggplot(data = ada_five, aes(age_intro_feed, fill = age_intro_feed))+
 
 
 
-```{r}
+```{r include=FALSE}
 ggplot(data = ada_five, aes(edema, fill = edema))+
         
         geom_bar()+
@@ -400,7 +474,7 @@ ggplot(data = ada_five, aes(edema, fill = edema))+
 ***
 
 
-### Children above 5 years
+### Children above 5 years (Group 2)
 
 
 #### Sex of children
@@ -559,7 +633,7 @@ ggplot(data = ada_nine, aes(age_intro_feed, fill = age_intro_feed))+
 
 
 
-```{r}
+```{r include=FALSE}
 ggplot(data = ada_nine, aes(edema, fill = edema))+
         
         geom_bar()+
@@ -575,7 +649,22 @@ ggplot(data = ada_nine, aes(edema, fill = edema))+
 ***
 
 
-## Nutrition Intervention
+## 6. Nutrition Intervention
+
+Nutrition education was provided to mothers who were in attendance at the project regarding appropriate complementary feeding practices. Also, a food demonstration was done to show mothers how to prepare a sample complementary food.
+
+
+```{r fig.cap='Nutrition education', fig.hold='hold'}
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/education.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/nutrition-education.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/education-two.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/food-preparation.jpeg')
+
+knitr::include_graphics('/Users/ericanku/Documents/Healthmates/ada_project_analysis/healthmates-ada/food-preparation-two.jpeg')
+```
 
 
 
@@ -583,9 +672,13 @@ ggplot(data = ada_nine, aes(edema, fill = edema))+
 ***
 
 
-## Conclusion
+## 7. Conclusion
 
-The data and code used in this project are available [here](https://github.com/KomlaRD/healthmates-ada.git)
+Prevalence of acute malnutrition and chronic malnutritoin among a convenience sample of children 5 years and younger at Ada Foah was 13% and 25% respectively. Prevalence of acute malnutrition and chronic malnutritoin among a convenience sample of children at Ada Foah greater than 5 years was 11% and 17% respectively. Chronic malnutrition was more prevalent in both Group 1 and Group 2. Acute and chronic malnutriton was common in Group 1 than in Group 2.
+
+The data and code used for this project are available [here](https://github.com/KomlaRD/healthmates-ada.git)
+
+
 
 
 
