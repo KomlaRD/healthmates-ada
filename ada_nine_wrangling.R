@@ -1,4 +1,4 @@
-##---- ada-nine-transformation
+## ---- ada-nine-transformation
 
 ada_nine<- ada_nine%>%
         mutate (
@@ -102,24 +102,24 @@ ada_nine<- ada_nine%>%
                         ff_label("Mid-upper arm circumference"),
                 
                 
-                HAZ = HAZ%>%
+                haz = haz%>%
                         ff_label("Height-for-age z-score"),
                 
-                WAZ = WAZ%>%
+                waz = waz%>%
                         ff_label("Weight-for-age z-score"),
                 
-                BAZ = BAZ%>%
+                baz = baz%>%
                         ff_label("BMI-for-age z-score"),
                 
                 
                 baz_factor = case_when(
-                        BAZ < -2 ~ "Acute malnutrition",
-                        BAZ >= -2 ~ "Normal")%>%
+                        baz < -2 ~ "Acute malnutrition",
+                        baz >= -2 ~ "Normal")%>%
                         ff_label("Acute malnutrition"),
                 
                 haz_factor = case_when(
-                        HAZ < -2  ~ "Chronic malnutrition",
-                        HAZ >= -2 ~ "Normal"
+                        haz < -2  ~ "Chronic malnutrition",
+                        haz >= -2 ~ "Normal"
                 )%>%
                         ff_label("Chronic malnutrition")
                 

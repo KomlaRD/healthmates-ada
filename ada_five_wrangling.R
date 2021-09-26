@@ -1,4 +1,5 @@
 ## ---- ada-five-transformation
+
 ada_five<- ada_five%>%
         mutate (
                 sex = factor(sex)%>%
@@ -100,32 +101,32 @@ ada_five<- ada_five%>%
                 muac = muac%>%
                         ff_label("Mid-upper arm circumference"),
                 
-                WHZ = WHZ%>%
+                whz = whz%>%
                         ff_label("Weight-for-height z-score"),
                 
-                HAZ = HAZ%>%
+                haz = haz%>%
                         ff_label("Height-for-age z-score"),
                 
-                WAZ = WAZ%>%
+                waz = waz%>%
                         ff_label("Weight-for-age z-score"),
                 
-                BAZ = BAZ%>%
+                baz = baz%>%
                         ff_label("BMI-for-age z-score"),
                 
-                HCZ = HCZ%>%
+                hcz = hcz%>%
                         ff_label("Head circumference z-score"),
                 
-                MUACZ = MUACZ%>%
+                muacz = muacz%>%
                         ff_label("MUAC z-score"),
                 
                 whz_factor = case_when(
-                        WHZ < -2 ~ "Acute malnutrition",
-                        WHZ >= -2 ~ "Normal")%>%
+                        whz < -2 ~ "Acute malnutrition",
+                        whz >= -2 ~ "Normal")%>%
                         ff_label("Acute malnutrition"),
                 
                 haz_factor = case_when(
-                        HAZ < -2  ~ "Chronic malnutrition",
-                        HAZ >= -2 ~ "Normal"
+                        haz < -2  ~ "Chronic malnutrition",
+                        haz >= -2 ~ "Normal"
                 )%>%
                         ff_label("Chronic malnutrition")
                 
